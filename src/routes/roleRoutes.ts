@@ -13,7 +13,7 @@ router.get("/", async (_req, res: Response) => {
   const users = await roleService.findRoles();
   console.log(users);
   if (!users.length) {
-    res.status(404).json({ message: "No users found" });
+    res.status(404).json({ message: "No roles found" });
     return;
   }
   res.status(200).json(users);
@@ -22,7 +22,7 @@ router.get("/", async (_req, res: Response) => {
 router.get("/:id", async (req, res: Response) => {
   const users = await roleService.findRoleById(req.params.id);
   if (!users) {
-    res.status(404).json({ message: "No users found" });
+    res.status(404).json({ message: "No roles found" });
     return;
   }
   res.status(200).json(users);
@@ -37,7 +37,7 @@ router.post("/", async (req: Request, res: Response) => {
 router.put("/:id", async (req: Request, res: Response) => {
   const role = await roleService.updateRole(req.params.id, req.body);
   if (!role) {
-    res.status(404).json({ message: "No user found" });
+    res.status(404).json({ message: "No role found" });
     return;
   }
   res.status(200).json(role);
