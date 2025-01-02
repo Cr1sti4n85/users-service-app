@@ -1,23 +1,16 @@
-import { UserRepository } from "@repositories/userRepository";
-import { UserService } from "@services/userService";
+import { RolesRepository } from "@repositories/roleRepository";
+import { RolesService } from "@services/RolesServices";
 import { Request, Response, Router } from "express";
-import { IUserRepository, IUserService, User } from "types/UserTypes";
+import { IRoleRepository, IRoleService, Roles } from "types/RolesTypes";
 
 const router = Router();
 
-const userRepository: IUserRepository = new UserRepository();
-const userService: IUserService = new UserService(userRepository);
+const roleRepository: IRoleRepository = new RolesRepository();
+const roleService: IRoleService = new RolesService(roleRepository);
 
-router.get("/health", (_req, res: Response) => {
-  res.status(200).json({
-    ok: true,
-    message: "Api is ok",
-  });
-});
-
-//USER ROUTES
+//Role ROUTES
 router.get("/", async (_req, res: Response) => {
-  const users = await userService.findUsers();
+  const users = await roleService.findRoles();
   console.log(users);
   if (!users.length) {
     res.status(404).json({ message: "No users found" });
@@ -27,7 +20,7 @@ router.get("/", async (_req, res: Response) => {
 });
 
 router.get("/:id", async (req, res: Response) => {
-  const users = await userService.findUserById(req.params.id);
+  const users = await roleService.findRoleById(req.params.id);
   if (!users) {
     res.status(404).json({ message: "No users found" });
     return;
@@ -36,24 +29,24 @@ router.get("/:id", async (req, res: Response) => {
 });
 
 router.post("/", async (req: Request, res: Response) => {
-  const newUser: User = req.body;
-  const result = await userService.createUser(newUser);
+  const newRole: Roles = req.body;
+  const result = await roleService.createRole(newRole);
   res.status(201).json(result);
 });
 
 router.put("/:id", async (req: Request, res: Response) => {
-  const user = await userService.updateUser(req.params.id, req.body);
-  if (!user) {
+  const role = await roleService.updateRole(req.params.id, req.body);
+  if (!role) {
     res.status(404).json({ message: "No user found" });
     return;
   }
-  res.status(200).json(user);
+  res.status(200).json(role);
 });
 
 router.delete("/:id", async (req: Request, res: Response) => {
-  const user = await userService.deleteUser(req.params.id);
+  const role = await roleService.deleteRole(req.params.id);
 
-  res.status(200).json(user);
+  res.status(200).json(role);
 });
 
 export default router;
