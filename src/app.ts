@@ -1,5 +1,6 @@
-import app from "@server/server";
 import { loadEnvFile } from "process";
+import app from "@server/server";
+import "@config/mongodb";
 
 loadEnvFile();
 
