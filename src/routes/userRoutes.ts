@@ -1,6 +1,6 @@
 import { UserRepository } from "@repositories/userRepository";
 import { UserService } from "@services/userService";
-import { Response, Router } from "express";
+import { Request, Response, Router } from "express";
 import { IUserRepository, IUserService, User } from "types/UserTypes";
 
 const router = Router();
@@ -17,6 +17,7 @@ router.get("/health", (_req, res: Response) => {
 
 router.get("/users", async (_req, res: Response) => {
   const users = await userService.findUsers();
+  console.log(users);
   if (!users.length) {
     res.status(404).json({ message: "No users found" });
     return;
@@ -24,10 +25,34 @@ router.get("/users", async (_req, res: Response) => {
   res.status(200).json(users);
 });
 
-router.post("/users", async (req, res: Response) => {
+router.get("/users/:id", async (req, res: Response) => {
+  const users = await userService.findUserById(req.params.id);
+  if (!users) {
+    res.status(404).json({ message: "No users found" });
+    return;
+  }
+  res.status(200).json(users);
+});
+
+router.post("/users", async (req: Request, res: Response) => {
   const newUser: User = req.body;
   const result = await userService.createUser(newUser);
   res.status(201).json(result);
+});
+
+router.put("/users/:id", async (req: Request, res: Response) => {
+  const user = await userService.updateUser(req.params.id, req.body);
+  if (!user) {
+    res.status(404).json({ message: "No user found" });
+    return;
+  }
+  res.status(200).json(user);
+});
+
+router.delete("/users/:id", async (req: Request, res: Response) => {
+  const user = await userService.deleteUser(req.params.id);
+
+  res.status(200).json(user);
 });
 
 export default router;
