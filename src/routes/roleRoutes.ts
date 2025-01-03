@@ -1,53 +1,24 @@
-import { RolesRepository } from "@repositories/roleRepository";
-import { RolesService } from "@services/RolesServices";
-import { Request, Response, Router } from "express";
-import { IRoleRepository, IRoleService, Roles } from "types/RolesTypes";
+import { Router } from "express";
+import {
+  createRole,
+  deleteRole,
+  findRoleById,
+  findRoles,
+  updateRole,
+} from "@controllers/rolesController";
 
 const router = Router();
 
-const roleRepository: IRoleRepository = new RolesRepository();
-const roleService: IRoleService = new RolesService(roleRepository);
-
 //Role ROUTES
-router.get("/", async (_req, res: Response) => {
-  const users = await roleService.findRoles();
-  console.log(users);
-  if (!users.length) {
-    res.status(404).json({ message: "No roles found" });
-    return;
-  }
-  res.status(200).json(users);
-});
+router.get("/", findRoles);
 
-router.get("/:id", async (req, res: Response) => {
-  const users = await roleService.findRoleById(req.params.id);
-  if (!users) {
-    res.status(404).json({ message: "No roles found" });
-    return;
-  }
-  res.status(200).json(users);
-});
+router.get("/:id", findRoleById);
 
-router.post("/", async (req: Request, res: Response) => {
-  const newRole: Roles = req.body;
-  const result = await roleService.createRole(newRole);
-  res.status(201).json(result);
-});
+router.post("/", createRole);
 
-router.put("/:id", async (req: Request, res: Response) => {
-  const role = await roleService.updateRole(req.params.id, req.body);
-  if (!role) {
-    res.status(404).json({ message: "No role found" });
-    return;
-  }
-  res.status(200).json(role);
-});
+router.put("/:id", updateRole);
 
-router.delete("/:id", async (req: Request, res: Response) => {
-  const role = await roleService.deleteRole(req.params.id);
-
-  res.status(200).json(role);
-});
+router.delete("/:id", deleteRole);
 
 export default router;
 
