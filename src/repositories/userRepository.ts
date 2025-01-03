@@ -1,6 +1,8 @@
 import { UserModel } from "@models/Users";
 import { IUserRepository, User } from "../types/UserTypes";
+import { Query } from "types/RepositoryTypes";
 
+//aca esta la logica para hacer queries a la base de datos
 export class UserRepository implements IUserRepository {
   async create(data: User): Promise<User> {
     const newUser = new UserModel(data);
@@ -13,6 +15,10 @@ export class UserRepository implements IUserRepository {
 
   async findById(id: string): Promise<User | null> {
     return await UserModel.findById(id).exec();
+  }
+
+  async findOne(query: Query): Promise<User | null> {
+    return await UserModel.findOne(query).exec();
   }
 
   async update(id: string, data: Partial<User>): Promise<User | null> {
