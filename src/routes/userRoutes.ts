@@ -6,8 +6,12 @@ import {
   findUsersById,
   updateUser,
 } from "@controllers/userControllers";
+import { registerUser } from "auth/authControllers";
 
 const router = Router();
+
+//Auth Routes
+router.post("/auth/register", registerUser);
 
 //USER ROUTES
 router.get("/", findUsers);
