@@ -7,6 +7,7 @@ export interface User extends Document {
   username: string;
   email: string;
   password: string;
+  comparePassword: (password: string) => Promise<boolean>;
 }
 
 //este es el repositoriio que construimos para buscar la data

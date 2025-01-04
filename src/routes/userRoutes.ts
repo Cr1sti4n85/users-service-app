@@ -6,22 +6,19 @@ import {
   findUsersById,
   updateUser,
 } from "@controllers/userControllers";
-import { registerUser } from "auth/authControllers";
+import { loginUser, registerUser } from "auth/authControllers";
 
 const router = Router();
 
 //Auth Routes
 router.post("/auth/register", registerUser);
+router.post("/auth/login", loginUser);
 
 //USER ROUTES
 router.get("/", findUsers);
-
 router.get("/:id", findUsersById);
-
 router.post("/", createUser);
-
 router.put("/:id", updateUser);
-
 router.delete("/:id", deleteUser);
 
 export default router;

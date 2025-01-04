@@ -22,3 +22,21 @@ export const registerUser = async (
     res.status(400).json({ message: error.message });
   }
 };
+
+export const loginUser = async (req: Request, res: Response): Promise<any> => {
+  const { email, password }: User = req.body;
+  try {
+    const user = await userService.findUserByEmail(email);
+    if (!user) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    const isValidPass = await user.comparePassword(password);
+
+    if (!isValidPass)
+      return res.status(400).json({ message: "Invalid email or password" });
+    res.status(201).json(user);
+  } catch (error: any) {
+    res.status(400).json({ message: error.message });
+  }
+};
