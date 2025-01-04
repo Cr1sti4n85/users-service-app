@@ -9,8 +9,8 @@ export class UserRepository implements IUserRepository {
     return await newUser.save();
   }
 
-  async find(): Promise<User[]> {
-    return await UserModel.find().exec(); //con exec retorna solo los datos
+  async find(query?: Query): Promise<User[]> {
+    return await UserModel.find(query || {}).exec(); //con exec retorna solo los datos
   }
 
   async findById(id: string): Promise<User | null> {

@@ -1,5 +1,5 @@
 //LOGICA DEL NEGOCIO
-import { Repository } from "./RepositoryTypes";
+import { Query, Repository } from "./RepositoryTypes";
 
 export interface Roles {
   id: string;
@@ -11,7 +11,7 @@ export interface IRoleRepository extends Repository<Roles> {}
 
 export interface IRoleService {
   createRole(roles: Roles): Promise<Roles>;
-  findRoles(): Promise<Roles[]>;
+  findRoles(query?: Query): Promise<Roles[]>;
   findRoleById(id: string): Promise<Roles | null>;
   updateRole(id: string, role: Partial<Roles>): Promise<Roles | null>;
   deleteRole(id: string): Promise<boolean>;
