@@ -15,11 +15,9 @@ router.post("/auth/register", registerUser);
 router.post("/auth/login", loginUser);
 
 //USER ROUTES
-router.get("/", findUsers);
-router.get("/:id", findUsersById);
-router.post("/", createUser);
-router.put("/:id", updateUser);
-router.delete("/:id", deleteUser);
+router.route("/").get(findUsers).post(createUser);
+
+router.route("/:id").get(findUsersById).put(updateUser).delete(deleteUser);
 
 export default router;
 

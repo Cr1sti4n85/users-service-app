@@ -10,15 +10,9 @@ import {
 const router = Router();
 
 //Role ROUTES
-router.get("/", findRoles);
+router.route("/").get(findRoles).post(createRole);
 
-router.get("/:id", findRoleById);
-
-router.post("/", createRole);
-
-router.put("/:id", updateRole);
-
-router.delete("/:id", deleteRole);
+router.route("/:id").get(findRoleById).put(updateRole).delete(deleteRole);
 
 export default router;
 
