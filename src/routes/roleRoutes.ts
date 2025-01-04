@@ -6,10 +6,12 @@ import {
   findRoles,
   updateRole,
 } from "@controllers/rolesController";
+import { verifyToken } from "middleware/auth";
 
 const router = Router();
 
 //Role ROUTES
+router.use(verifyToken);
 router.route("/").get(findRoles).post(createRole);
 
 router.route("/:id").get(findRoleById).put(updateRole).delete(deleteRole);

@@ -7,12 +7,15 @@ import {
   findPostsById,
   updatePosts,
 } from "@controllers/postsControllers";
+import { verifyToken } from "middleware/auth";
 
 const router = Router();
 
 // Posts Routes
-router.get("/posts", findPosts);
-router.get("/posts/:id", findPostsById);
-router.post("/posts", createPosts);
-router.put("/posts/:id", updatePosts);
-router.delete("/posts/:id", deletePosts);
+router.get("/", findPosts);
+router.get("/:id", findPostsById);
+router.post("/", verifyToken, createPosts);
+router.put("/:id", verifyToken, updatePosts);
+router.delete("/:id", verifyToken, deletePosts);
+
+export default router;
