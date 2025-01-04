@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import { UserRepository } from "@repositories/userRepository";
 import { UserService } from "@services/userService";
 import { Request, Response } from "express";
@@ -35,7 +36,15 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
 
     if (!isValidPass)
       return res.status(400).json({ message: "Invalid email or password" });
-    res.status(201).json(user);
+    const token = jwt.sign(
+      { id: user._id, username: user.username },
+      process.env.SECRET_KEY as string,
+      { expiresIn: "1h" }
+    );
+    res.status(201).json({
+      user,
+      token,
+    });
   } catch (error: any) {
     res.status(400).json({ message: error.message });
   }
