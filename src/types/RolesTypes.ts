@@ -1,9 +1,10 @@
 //LOGICA DEL NEGOCIO
+import { Document } from "mongoose";
 import { Query, Repository } from "./RepositoryTypes";
 
-export interface Roles {
-  id: string;
+export interface Roles extends Document {
   name: string;
+  permissions: string[];
 }
 
 //este es el repositoriio que construimos para buscar la data

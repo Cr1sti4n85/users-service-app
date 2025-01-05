@@ -3,8 +3,17 @@ import { Roles } from "types/RolesTypes";
 
 const RolesSchema: Schema = new Schema<Roles>(
   {
-    name: { type: String, required: true, unique: true },
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    permissions: {
+      type: [String],
+      default: [],
+    },
   },
+
   {
     timestamps: true,
     versionKey: false,

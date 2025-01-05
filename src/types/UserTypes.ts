@@ -1,12 +1,15 @@
 //LOGICA DEL NEGOCIO
 import { Document } from "mongoose";
 import { Query, Repository } from "./RepositoryTypes";
+import { Roles } from "./RolesTypes";
 
 export interface User extends Document {
   name: string;
   username: string;
   email: string;
   password: string;
+  roles?: Roles[];
+  permissions: string[];
   comparePassword: (password: string) => Promise<boolean>;
 }
 

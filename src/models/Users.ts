@@ -4,10 +4,35 @@ import { User } from "../types/UserTypes";
 
 const UserSchema: Schema = new Schema<User>(
   {
-    name: { type: String, required: true },
-    username: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true, trim: true },
+    name: {
+      type: String,
+      required: true,
+    },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    permissions: {
+      type: [String],
+      default: [],
+    },
+    roles: [
+      {
+        ref: "Roles",
+        type: Schema.Types.ObjectId,
+      },
+    ],
   },
   {
     timestamps: true,
