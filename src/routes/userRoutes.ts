@@ -8,6 +8,7 @@ import {
 } from "@controllers/userControllers";
 import { loginUser, registerUser } from "auth/authControllers";
 import { verifyToken } from "middleware/auth";
+import { checkRoles } from "middleware/roles";
 
 const router = Router();
 
@@ -17,7 +18,7 @@ router.post("/auth/login", loginUser);
 
 //USER ROUTES
 router.use(verifyToken);
-router.route("/").get(findUsers).post(createUser);
+router.route("/").get(findUsers).post(checkRoles, createUser);
 
 router.route("/:id").get(findUsersById).put(updateUser).delete(deleteUser);
 
