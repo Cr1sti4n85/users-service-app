@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { UserRepository } from "@repositories/userRepository";
 import { UserService } from "@services/userService";
 import { IUserRepository, IUserService, User } from "types/UserTypes";
-import { permissions, Method } from "types/PermissionTypes";
+import { permissions, Method } from "../types/PermissionTypes";
 
 const userRepository: IUserRepository = new UserRepository();
 const userService: IUserService = new UserService(userRepository);

@@ -6,7 +6,7 @@ import {
   findRoles,
   updateRole,
 } from "@controllers/rolesController";
-import { getPermissions, verifyToken } from "middleware/auth";
+import { getPermissions, verifyToken } from "@middleware/auth";
 
 const router = Router();
 

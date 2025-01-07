@@ -9,13 +9,7 @@
     "module": "CommonJS",
     "baseUrl": "./src", // Base para los alias
     "paths": {
-      "@controllers/*": ["controllers/*"],
-      "@services/*": ["services/*"],
-      "@repositories/*": ["repositories/*"],
-      "@models/*": ["models/*"],
-      "@routes/*": ["routes/*"],
-      "@server/*": ["server/*"],
-      "@config/*": ["config/*"]
+      "@*": ["*"]
     },
     "typeRoots": ["./@types", "./node_modules/@types"]
   },

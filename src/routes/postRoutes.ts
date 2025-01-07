@@ -7,7 +7,7 @@ import {
   findPostsById,
   updatePosts,
 } from "@controllers/postsControllers";
-import { getPermissions, verifyToken } from "middleware/auth";
+import { getPermissions, verifyToken } from "@middleware/auth";
 
 const router = Router();
 

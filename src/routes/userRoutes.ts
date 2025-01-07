@@ -6,8 +6,8 @@ import {
   findUsersById,
   updateUser,
 } from "@controllers/userControllers";
-import { getPermissions, verifyToken } from "middleware/auth";
-import { checkRoles } from "middleware/roles";
+import { getPermissions, verifyToken } from "@middleware/auth";
+import { checkRoles } from "@middleware/roles";
 
 const router = Router();
 

@@ -1,3 +1,4 @@
+import "module-alias/register";
 import { loadEnvFile } from "process";
 import app from "@server/server";
 import "@config/mongodb";
